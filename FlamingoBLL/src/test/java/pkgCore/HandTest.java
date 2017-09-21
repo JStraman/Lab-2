@@ -13,8 +13,9 @@ import pkgEnum.eSuit;
 
 public class HandTest {
 
+	//passes you back the score for that hand
 	public int[] HandHelper(ArrayList<Card> cards) {
-
+			
 		int[] result = null;
 
 		try {
@@ -22,7 +23,7 @@ public class HandTest {
 			//	c = structure of class 'Hand'
 			Class<?> c = Class.forName("pkgCore.Hand");
 
-			//	the arguements for 'AddCard' is a instance of Card
+			//	the arguments for 'AddCard' is an instance of Card
 			Class[] cArgsAddCard = new Class[1];
 			cArgsAddCard[0] = pkgCore.Card.class;
 
@@ -30,6 +31,7 @@ public class HandTest {
 			Object inst = c.newInstance();
 
 			//	Find the method 'AddCard' in Hand
+			// This makes it accessible ONLY for testing purposes, not by anyone else
 			Method mAddCard = c.getDeclaredMethod("AddCard", cArgsAddCard);
 			
 			//	Make the private method accessible 
@@ -51,6 +53,7 @@ public class HandTest {
 			for (int i : result) {
 				System.out.println(i);
 			}
+			
 
 		} catch (ClassNotFoundException x) {
 			x.printStackTrace();
@@ -64,10 +67,10 @@ public class HandTest {
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
+			// Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
+			// Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -77,50 +80,113 @@ public class HandTest {
 	@Test
 	public void test1() {
 		
-		// TODO: Test 2-3-4, score should be 9
+		// COMPLETE: Test 2-3-4, score should be 9
 
 		ArrayList<Card> cards = new ArrayList<Card>();
 		
-		// TODO:  REMOVE THE COMMENTS FROM THE NEXT THREE LINES
+		// COMPLETE:  REMOVE THE COMMENTS FROM THE NEXT THREE LINES
 		
-		//cards.add(new Card(eSuit.CLUBS,eRank.TWO));
-		//cards.add(new Card(eSuit.CLUBS,eRank.THREE));
-		//cards.add(new Card(eSuit.CLUBS,eRank.FOUR));
+		cards.add(new Card(eSuit.CLUBS,eRank.TWO));
+		cards.add(new Card(eSuit.CLUBS,eRank.THREE));
+		cards.add(new Card(eSuit.CLUBS,eRank.FOUR));
 		
 		int[] score = HandHelper(cards);
 		
-		//	TODO: Check Score to make sure it's right.  Something close to this:
+		//	COMPLETE: Check Score to make sure it's right.  Something close to this:
 		assertEquals(score[0],9);		
+		//System.out.println(score[0]);
 	}
 
 	@Test
 	public void test2() {
-		// TODO: Test 2-3-J, score should be 15
+		// COMPLETE: Test 2-3-J, score should be 15
+		ArrayList<Card> cards = new ArrayList<Card>();
+		
+		cards.add(new Card(eSuit.CLUBS,eRank.TWO));
+		cards.add(new Card(eSuit.CLUBS,eRank.THREE));
+		cards.add(new Card(eSuit.CLUBS,eRank.JACK));
+		
+		int[] score = HandHelper(cards);
+		
+		assertEquals(score[0],15);		
+		//System.out.println(score[0]);
 	}
 
 	@Test
 	public void test3() {
-		// TODO: Test 2-3-J-J, score should be 25
+		// COMPLETE: Test 2-3-J-J, score should be 25
+		ArrayList<Card> cards = new ArrayList<Card>();
+		
+		cards.add(new Card(eSuit.CLUBS,eRank.TWO));
+		cards.add(new Card(eSuit.CLUBS,eRank.THREE));
+		cards.add(new Card(eSuit.CLUBS,eRank.JACK));
+		cards.add(new Card(eSuit.CLUBS,eRank.JACK));
+		
+		int[] score = HandHelper(cards);
+		
+		assertEquals(score[0],25);		
+		//System.out.println(score[0]);
 	}
 
 	@Test
 	public void test4() {
-		// TODO: Test J-A, score should be 21
+		// COMPLETE: Test J-A, score should be 21
+		ArrayList<Card> cards = new ArrayList<Card>();
+		
+		cards.add(new Card(eSuit.CLUBS,eRank.JACK));
+		cards.add(new Card(eSuit.CLUBS,eRank.ACE));
+		
+		int[] score = HandHelper(cards);
+		
+		//System.out.println("Should be 21: " + score[0]);
+		//System.out.println("Should be 11: " + score[1]);
+		assertEquals(score[0],21);		
 	}
 
 	@Test
 	public void test5() {
-		// TODO: Test J-A-A, score should be 12
+		// COMPLETE: Test J-A-A, score should be 12
+		ArrayList<Card> cards = new ArrayList<Card>();
+		
+		cards.add(new Card(eSuit.CLUBS,eRank.JACK));
+		cards.add(new Card(eSuit.CLUBS,eRank.ACE));
+		cards.add(new Card(eSuit.CLUBS,eRank.ACE));
+		
+		int[] score = HandHelper(cards);
+		
+		assertEquals(score[0],12);		
 	}
 
 	@Test
 	public void test6() {
-		// TODO: Test J-A-A-A, score should be 13
+		// COMPLETE: Test J-A-A-A, score should be 13
+		ArrayList<Card> cards = new ArrayList<Card>();
+		
+		cards.add(new Card(eSuit.CLUBS,eRank.JACK));
+		cards.add(new Card(eSuit.CLUBS,eRank.ACE));
+		cards.add(new Card(eSuit.CLUBS,eRank.ACE));
+		cards.add(new Card(eSuit.CLUBS,eRank.ACE));		
+		
+		int[] score = HandHelper(cards);
+		
+		assertEquals(score[0],13);		
 	}
 	
 	@Test
 	public void test7() {
-		//	TODO: Test A-A-A-A-2, score should be 6 or 16
+		//	COMPLETE: Test A-A-A-A-2, score should be 6 or 16
+		ArrayList<Card> cards = new ArrayList<Card>();
+		
+		cards.add(new Card(eSuit.CLUBS,eRank.ACE));
+		cards.add(new Card(eSuit.CLUBS,eRank.ACE));
+		cards.add(new Card(eSuit.CLUBS,eRank.ACE));		
+		cards.add(new Card(eSuit.CLUBS,eRank.ACE));
+		cards.add(new Card(eSuit.CLUBS,eRank.TWO));
+		
+		int[] score = HandHelper(cards);
+		
+		assertEquals(score[0],6);	
+		assertEquals(score[1],16);
 	}
 
 }
